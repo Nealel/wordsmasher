@@ -1,0 +1,3 @@
+wordsmasher:
+  generator:
+    sourcefile: /data/english_words_2000.txt
