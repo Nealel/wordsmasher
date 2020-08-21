@@ -26,7 +26,7 @@ public class BtnFileWriter {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
             writer.append(name);
-            writer.append("\\n");
+            writer.append("\n");
         }
     }
 

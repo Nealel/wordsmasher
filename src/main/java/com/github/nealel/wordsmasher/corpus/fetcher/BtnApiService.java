@@ -23,6 +23,9 @@ public class BtnApiService {
         if (okResponse(response)) {
             String jsonResponse = EntityUtils.toString(response.getEntity());
             log.info("Response was {}", jsonResponse);
+            if (jsonResponse.contains("error_code")) {
+                return Optional.empty();
+            }
             JSONObject jsonObject = (JSONObject) new JSONArray(jsonResponse).get(0);
             return Optional.of(jsonObject);
         }
