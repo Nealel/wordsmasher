@@ -15,8 +15,12 @@ public class BtnFileWriter {
     public static void responseToFile(String name, JSONObject jsonObject) throws IOException {
         JSONArray usages = jsonObject.getJSONArray("usages");
         for (Object usage : usages) {
-            String filePath = getFilePath((JSONObject) usage);
-            appendToFile(name, filePath);
+            try {
+                String filePath = getFilePath((JSONObject) usage);
+                appendToFile(name, filePath);
+            } catch (Exception e) {
+                log.warn("error!", e);
+            }
         }
     }
 

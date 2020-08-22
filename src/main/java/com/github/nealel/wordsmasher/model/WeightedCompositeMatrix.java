@@ -9,16 +9,16 @@ public class WeightedCompositeMatrix {
 
     private final Map<String, TransitionProbabilities> probabilities = new HashMap<>();
 
-    public WeightedCompositeMatrix(Set<TransitionCountMatrix> matrices) {
+    public WeightedCompositeMatrix(Map<TransitionCountMatrix, Double> matrices) {
         populateMatrix(matrices);
     }
 
-    public String getRandomNextLetter(String chunk) {
-        return probabilities.get(chunk).randomNextLetter();
+    public TransitionProbabilities getProbabilities(String chunk) {
+        return probabilities.get(chunk);
     }
 
-    private void populateMatrix(Set<TransitionCountMatrix> matrices) {
-        Set<String> allChunks = matrices.stream()
+    private void populateMatrix(Map<TransitionCountMatrix, Double> matrices) {
+        Set<String> allChunks = matrices.keySet().stream()
                 .map(TransitionCountMatrix::getChunks)
                 .flatMap(Set::stream)
                 .collect(toSet());
@@ -30,9 +30,9 @@ public class WeightedCompositeMatrix {
         }
     }
 
-    private Map<String, Double> weightAndCombineCounts(Set<TransitionCountMatrix> matrices, String chunk) {
-        return matrices.stream()
-                .map(m -> m.getWeightedCount(chunk))
+    private Map<String, Double> weightAndCombineCounts(Map<TransitionCountMatrix, Double> matrices, String chunk) {
+        return matrices.entrySet().stream()
+                .map(m -> m.getKey().getWeightedCount(chunk, m.getValue()))
                 .flatMap(m -> m.entrySet().stream())
                 .collect(toMap(Entry::getKey, Entry::getValue, Double::sum));
     }

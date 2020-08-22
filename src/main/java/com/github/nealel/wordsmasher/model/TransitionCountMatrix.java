@@ -12,12 +12,16 @@ public class TransitionCountMatrix {
     public static final String END_SYMBOL = "$";
     private final int chunkSize;
     private final Map<String, TransitionCounts> counts = new HashMap<>();
-    private final double weight;
+    private Set<String> words;
 
-    public TransitionCountMatrix(Set<String> words, int chunkSize, double weight) {
+    public TransitionCountMatrix(Set<String> words, int chunkSize) {
         this.chunkSize = chunkSize;
-        this.weight = weight;
+        this.words = words;
         words.forEach(this::recordTransitions);
+    }
+
+    public Set<String> getWords() {
+        return words;
     }
 
     public TransitionCounts getCounts(String from) {
@@ -28,7 +32,7 @@ public class TransitionCountMatrix {
         return counts.keySet();
     }
 
-    public Map<String, Double> getWeightedCount(String chunk) {
+    public Map<String, Double> getWeightedCount(String chunk, Double weight) {
         TransitionCounts counts = this.counts.get(chunk);
         if (counts != null) {
             return counts.asMap().entrySet()

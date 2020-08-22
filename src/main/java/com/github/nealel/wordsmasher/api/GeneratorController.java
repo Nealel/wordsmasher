@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class GeneratorController {
@@ -20,7 +21,7 @@ public class GeneratorController {
     private FileCorpusLoader fileCorpusLoader;
 
     @PostMapping("/names")
-    public List<String> getNames(@RequestBody BatchRequestDto request) throws IOException {
+    public List<String> getNames(@RequestBody BatchRequestDto request) throws ExecutionException {
         return generator.generateBatch(request);
     }
 

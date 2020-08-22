@@ -12,7 +12,7 @@ public class TransitionCountMatrixTest {
 
     @Test
     public void oneWord_chunkSizeOne() {
-        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple"), 1, 1);
+        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple"), 1);
 
         assertCounts(actual, "^", Map.of("a", 1));
         assertCounts(actual, "a", Map.of("p", 1));
@@ -23,7 +23,7 @@ public class TransitionCountMatrixTest {
 
     @Test
     public void oneWord_chunkSizeThree() {
-        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple"), 3, 1);
+        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple"), 3);
 
         assertCounts(actual, "^", Map.of("app", 1));
         assertCounts(actual, "app", Map.of("l", 1));
@@ -33,7 +33,7 @@ public class TransitionCountMatrixTest {
 
     @Test
     public void threeWords_chunkSizeOne() {
-        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple", "ant", "want"), 1,1);
+        TransitionCountMatrix actual = new TransitionCountMatrix(Set.of("apple", "ant", "want"), 1);
 
         assertCounts(actual, "^", Map.of("a", 2, "w", 1));
         assertCounts(actual, "a", Map.of("p", 1, "n", 2));

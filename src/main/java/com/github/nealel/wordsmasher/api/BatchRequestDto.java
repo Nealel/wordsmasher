@@ -10,5 +10,5 @@ public class BatchRequestDto {
     private final int minWordLength;
     private final int maxWordLength;
     private final int batchSize;
-    private final List<SourceSpecificationDto> sourceSpecifications;
+    private final List<SourceSpecification> sourceSpecifications;
 }
