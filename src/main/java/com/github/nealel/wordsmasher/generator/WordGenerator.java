@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static com.github.nealel.wordsmasher.model.TransitionCountMatrix.END_SYMBOL;
@@ -16,12 +17,14 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class WordGenerator {
     private static final Random RANDOM = new Random();
-    private BatchRequestDto request;
-    private WeightedCompositeMatrix matrix;
+    private final Pattern pattern;
+    private final BatchRequestDto request;
+    private final WeightedCompositeMatrix matrix;
 
     public WordGenerator(BatchRequestDto request, WeightedCompositeMatrix matrix) {
         this.request = request;
         this.matrix = matrix;
+        this.pattern = RegexResolver.toRegex(request.getPattern());
     }
 
     public Optional<String> nextWord() {
@@ -31,7 +34,7 @@ public class WordGenerator {
             String previousChunk = word.substring(word.length() - request.getChunkSize());
             String nextLetter = nextLetter(matrix, previousChunk);
             if (nextLetter.equals(END_SYMBOL)) {
-                if (word.length() > request.getMinWordLength()) {
+                if (word.length() > request.getMinWordLength() && pattern.matcher(word).find()) {
                     return Optional.of(word.toString());
                 }
                 return Optional.empty();
