@@ -27,18 +27,18 @@
               <div class="col">
                 <div class="form-group">
                   <label for="creativity">Weirdness</label>
-                  <select class="form-control" id="creativity">
-                    <option>Very low</option>
-                    <option>Low</option>
-                    <option selected>Medium</option>
-                    <option>High</option>
+                  <select class="form-control" id="chunkSize">
+                    <option value="4">Very low</option>
+                    <option value="3">Low</option>
+                    <option value="2" selected>Medium</option>
+                    <option value="1">High</option>
                   </select>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="batchsize">Count:</label>
-                  <input id="batchsize" class="form-control" type="number" value="10" min="1" max="1000" step="1" />
+                  <label for="batchSize">Count:</label>
+                  <input id="batchSize" class="form-control" type="number" value="10" min="1" max="1000" step="1" />
                 </div>
               </div>
             </div>
@@ -46,13 +46,13 @@
             <div class="form-row" id="lengthSetting">
               <div class="col-xs-5">
                 <div class="form-group">
-                  <input id="minlength" class="form-control" type="number" value="3" min="1" max="100" step="1" />
+                  <input id="minWordLength" class="form-control" type="number" value="3" min="1" max="100" step="1" />
                 </div>
               </div>
               <div class="col" style="text-align: center;"> to </div>
               <div class="col-xs-5">
                 <div class="form-group">
-                  <input id="maxlength" class="form-control" type="number" value="12" min="1" max="100" step="1" />
+                  <input id="maxWordLength" class="form-control" type="number" value="12" min="1" max="100" step="1" />
                 </div>
               </div>
             </div>
@@ -66,18 +66,20 @@
               <p>
               <h5>Sources</h5>
               </p>
-              <div class="form-row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label>Source</label>
-                    <select class="form-control sourceList">
-                    </select>
+              <div id="sourceSpecification">
+                <div class="form-row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label>Source</label>
+                      <select class="form-control sourceName">
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <label for="sourceweight1">weight</label>
-                    <input id="sourceweight1" class="form-control" type="number" value="1.0" min="0" max="10" step="0.1" />
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label>weight</label>
+                      <input class="form-control sourceWeight" type="number" value="1.0" min="0" max="10" step="0.1" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -91,7 +93,7 @@
         </div>
 
         <div class="row" style="padding-top:5px">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" onclick="generate()">
             <span>Generate</span>
           </button>
         </div>
@@ -108,7 +110,7 @@
       </div>
     </div>
 
-    </div>
+  </div>
   </div>
 
 </body>

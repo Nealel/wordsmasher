@@ -32,8 +32,9 @@ public class FileCorpusLoader {
                 .collect(Collectors.toList());
     }
 
-    public static Set<String> loadCorpus(String fileName, int minSize){
-        Scanner scanner = new Scanner(FileCorpusLoader.class.getResourceAsStream(fileName), StandardCharsets.UTF_8)
+    public Set<String> loadCorpus(String fileName, int minSize) throws IOException {
+        Resource resource = resourceResolver.getResources("classpath:" + fileroot + fileName + ".txt")[0];
+        Scanner scanner = new Scanner(resource.getInputStream(), StandardCharsets.UTF_8)
                 .useDelimiter("\\s+");
 
         Set<String> words = new HashSet<>();
@@ -52,7 +53,7 @@ public class FileCorpusLoader {
         return words;
     }
 
-    private static boolean isSuitable(int minSize, String word) {
+    private boolean isSuitable(int minSize, String word) {
         return word.matches("[a-zA-Z]+") && word.length() >= minSize;
     }
 }

@@ -4,6 +4,7 @@ import com.github.nealel.wordsmasher.corpus.FileCorpusLoader;
 import com.github.nealel.wordsmasher.generator.BatchGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,8 @@ public class GeneratorController {
     @Autowired
     private FileCorpusLoader fileCorpusLoader;
 
-    @GetMapping("/names")
-    public List<String> getNames(@RequestBody BatchRequestDto request) {
+    @PostMapping("/names")
+    public List<String> getNames(@RequestBody BatchRequestDto request) throws IOException {
         return generator.generateBatch(request);
     }
 
