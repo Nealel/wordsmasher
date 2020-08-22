@@ -67,24 +67,9 @@
               <h5>Sources</h5>
               </p>
               <div id="sourceSpecification">
-                <div class="form-row">
-                  <div class="col-md-8">
-                    <div class="form-group">
-                      <label>Source</label>
-                      <select class="form-control sourceName">
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label>weight</label>
-                      <input class="form-control sourceWeight" type="number" value="1.0" min="0" max="10" step="0.1" />
-                    </div>
-                  </div>
-                </div>
               </div>
               <div class="form-row" style="padding: 5px">
-                <button type="submit" class="btn btn-outline-primary">
+                <button class="btn btn-outline-primary" onclick="addSourceRow()" type="button">
                   <span>add source</span>
                 </button>
               </div>
@@ -93,7 +78,7 @@
         </div>
 
         <div class="row" style="padding-top:5px">
-          <button type="submit" class="btn btn-primary" onclick="generate()">
+          <button class="btn btn-primary" onclick="generate()">
             <span>Generate</span>
           </button>
         </div>
