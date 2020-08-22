@@ -9,89 +9,111 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
 
   <div class="container">
     <div class="row">
-
       <div class="col-sm-6" id="controlcard">
         <div class="row" style="padding-top:10px">
           <form>
             <p>
-            <h3>Settings</h3>
-            </p>
-            <div class="form-group">
-              <label for="creativity">creativity:</label>
-              <input id="creativity" class="form-control" type="number" value="2" min="1" max="5" step="1" />
-            </div>
-            <div class="form-group">
-              <label for="minlength">Mininum length:</label>
-              <input id="minlength" class="form-control" type="number" value="3" min="1" max="100" step="1" />
-            </div>
-            <div class="form-group">
-              <label for="maxlength">Maximm length:</label>
-              <input id="maxlength" class="form-control" type="number" value="12" min="1" max="100" step="1" />
-            </div>
-            <div class="form-group">
-              <label for="batchsize">Number to generate:</label>
-              <input id="number" class="form-control" type="number" value="10" min="1" max="1000" step="1" />
-            </div>
-          </form>
-        </div>
-
-
-        <div class="row" style="padding-top:10px">
-
-          <form class="form-inline">
-            <p>
-            <h3>Sources</h3>
+            <h5>Settings</h5>
             </p>
             <div class="form-row">
               <div class="col">
                 <div class="form-group">
-                  <label for="source1">Source:</label>
-                  <select class="form-control" id="source1">
-                    <option>English</option>
-                    <option>French</option>
-                    <option>Chinese</option>
-                    <option>Ancient Greek (female)</option>
+                  <label for="creativity">Weirdness</label>
+                  <select class="form-control" id="creativity">
+                    <option>Very low</option>
+                    <option>Low</option>
+                    <option selected>Medium</option>
+                    <option>High</option>
                   </select>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="sourceweight1">weight:</label>
-                  <input id="sourceweight1" class="form-control" type="number" value="0.5" min="0" max="1" step="0.1" />
+                  <label for="batchsize">Count:</label>
+                  <input id="number" class="form-control" type="number" value="10" min="1" max="1000" step="1" />
                 </div>
               </div>
             </div>
-            <div class="form-row" style="padding: 5px">
-              <button type="submit" class="btn btn-secondary">
-                <span>add source</span>
-              </button>
+            <label for="lengthSetting">Name length</label>
+            <div class="form-row" id="lengthSetting">
+              <div class="col-xs-5">
+                <div class="form-group">
+                  <input id="minlength" class="form-control" type="number" value="3" min="1" max="100" step="1" />
+                </div>
+              </div>
+              <div class="col" style="text-align: center;"> to </div>
+              <div class="col-xs-5">
+                <div class="form-group">
+                  <input id="maxlength" class="form-control" type="number" value="12" min="1" max="100" step="1" />
+                </div>
+              </div>
             </div>
+
           </form>
-      <!-- </div> -->
+        </div>
+
+        <div class="row" style="padding-top:10px">
+          <div>
+            <form>
+              <p>
+              <h5>Sources</h5>
+              </p>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="source1">Source:</label>
+                    <select class="form-control" id="source1">
+                      <option>English</option>
+                      <option>French</option>
+                      <option>Chinese</option>
+                      <option>Ancient Greek (female)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="sourceweight1">weight:</label>
+                    <input id="sourceweight1" class="form-control" type="number" value="0.5" min="0" max="1" step="0.1" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-row" style="padding: 5px">
+                <button type="submit" class="btn btn-outline-primary">
+                  <span>add source</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top:5px">
+          <button type="submit" class="btn btn-primary">
+            <span>Generate</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6" id="resultCol" style="padding-top: 10px">
+        <h5 style="line-height: 1">Results</h5>
+        <div class="card card-default h-100">
+          <div class="card-body" id="resultsText">
+            <p style="color: lightgray"><i>waiting for results...</i></p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="row" style="padding-top:5px">
-      <button type="submit" class="btn btn-primary">
-        <span>Generate</span>
-      </button>
     </div>
-
-  </div>
-
-  <div class="col-sm-6" id="resultCol">
-    <label for="resultsCard">Results:</label>
-    <div class="card card-default" id="resultsCard">
-      <div class="card-body">Results go here</div>
-    </div>
-  </div>
-
-  </div>
   </div>
 
 </body>
