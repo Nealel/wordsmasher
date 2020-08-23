@@ -24,7 +24,7 @@ import static java.lang.Thread.sleep;
 @Slf4j
 public class BehindTheNameCorpusBuilder {
 
-    private static final int SECS_BETWEEN_REQUESTS = 10;
+    private static final int SECS_BETWEEN_REQUESTS = 3;
 
     /**
      * @param args

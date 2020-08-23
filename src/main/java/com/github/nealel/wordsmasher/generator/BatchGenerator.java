@@ -22,7 +22,7 @@ public class BatchGenerator {
     private final int maxAttemptsPerWord;
     private final MatrixLoader matrixLoader;
 
-    public BatchGenerator(@Value("${wordsmasher.generator.maxattempts:1000}") int maxAttemptsPerWord,
+    public BatchGenerator(@Value("${wordsmasher.generator.maxattempts:100}") int maxAttemptsPerWord,
                           MatrixLoader matrixLoader) {
         this.maxAttemptsPerWord = maxAttemptsPerWord;
         this.matrixLoader = matrixLoader;

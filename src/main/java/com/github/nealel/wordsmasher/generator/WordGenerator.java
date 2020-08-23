@@ -34,7 +34,7 @@ public class WordGenerator {
             String previousChunk = word.substring(word.length() - request.getChunkSize());
             String nextLetter = nextLetter(matrix, previousChunk);
             if (nextLetter.equals(END_SYMBOL)) {
-                if (word.length() > request.getMinWordLength() && pattern.matcher(word).find()) {
+                if (word.length() > request.getMinWordLength() && pattern.matcher(word.toString().toLowerCase()).find()) {
                     return Optional.of(word.toString());
                 }
                 return Optional.empty();
