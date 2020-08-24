@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ultra Name Lab!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <script src="js/script.js"></script>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <script>
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6" id="controlcard">
+        <div class="row" style="padding-top:10px">
+          <form>
+            <p>
+            <h5>Settings</h5>
+            </p>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="creativity">
+                    Weirdness
+                    <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" data-placement="right"
+                      title="<p>Weirdsness controls how closely the generator sticks to the source data set.</p>
+                      <p>A low Weirdness will produce sensible names, but might be a bit samey.</p>
+                      <p>A high Weirdness will produce more diverse names, but might be low quality.</p>"></i>
+                  </label>
+                  <select class="form-control" id="chunkSize">
+                    <option value="4">Very low</option>
+                    <option value="3">Low</option>
+                    <option value="2" selected>Medium</option>
+                    <option value="1">High</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="batchSize">
+                    Count
+                  </label>
+                  <input id="batchSize" class="form-control" type="number" value="10" min="1" max="1000" step="1" />
+                </div>
+              </div>
+            </div>
+            <label for="lengthSetting">Name length</label>
+            <div class="form-row" id="lengthSetting">
+              <div class="col-xs-5">
+                <div class="form-group">
+                  <input id="minWordLength" class="form-control" type="number" value="3" min="1" max="100" step="1" />
+                </div>
+              </div>
+              <div class="col" style="text-align: center;"> to </div>
+              <div class="col-xs-5">
+                <div class="form-group">
+                  <input id="maxWordLength" class="form-control" type="number" value="12" min="1" max="100" step="1" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pattern">
+                Pattern <a href='/pattern-guide.html'  data-toggle="tooltip" data-html="true" data-placement="right"
+                  title="<p>Pattern defines the structure of the names generated</p>
+                    <p>'X' is the most generic pattern and imposes no restrictions.</p>
+                    <p>For more info, click the i icon to see a full guide</p>
+                  "><span class="fas fa-info-circle"></span></a>
+              </label>
+              <input id="pattern" class="form-control" type="text" value="X" />
+            </div>
+          </form>
+        </div>
+
+        <div class="row" style="padding-top:10px">
+          <div>
+            <form>
+              <p>
+              <h5>Sources
+              <i style="font-size: 14px" class="fas fa-info-circle" data-toggle="tooltip" data-html="true" data-placement="right"
+                title="<p>Source is the data set the generate uses as a model. It will generate names similar to that data set.</p>
+                <p>You can as many sources as you like, and it will blend them together.</p>
+                <p>Weight sets how much influence this source has on the results. A weight of 2 is twice as influential as a weight of 1.</p>"></i>
+              </h5>
+              </p>
+              <div id="sourceSpecification">
+              </div>
+              <div class="form-row" style="padding: 5px">
+                <button class="btn btn-outline-primary" onclick="addSourceRow()" type="button">
+                  <span>add source</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top:5px">
+          <button class="btn btn-primary" onclick="generate()">
+            <span>Generate</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6" id="resultCol" style="padding-top: 10px">
+        <h5 style="line-height: 1">Results</h5>
+        <div class="card card-default h-100">
+          <div class="card-body" id="resultsText">
+            <p class="notResult">ready to generate...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+</body>
+
+</html>

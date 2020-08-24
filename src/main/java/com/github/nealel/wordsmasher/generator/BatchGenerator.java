@@ -44,7 +44,7 @@ public class BatchGenerator {
                 .filter(Optional::isPresent)
                 .distinct()
                 .map(Optional::get)
-                .filter(word -> !inputData.contains(word))
+//                .filter(word -> !inputData.contains(word))
                 .limit(request.getBatchSize())
                 .collect(toList());
     }
