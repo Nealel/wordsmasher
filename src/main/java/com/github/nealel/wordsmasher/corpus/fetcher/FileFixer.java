@@ -13,16 +13,16 @@ import static java.util.stream.Collectors.joining;
 
 public class FileFixer {
 
-    public static final String DIR = "src/main/resources/data/btn_rich/";
+    public static final String DIR = "src/main/resources/data/btn_rich/small/";
 
     public static void main(String[] args) throws IOException {
         File dir = new File(DIR);
         List<File> files = Arrays.stream(dir.listFiles())
                 .filter(File::isFile)
-                .filter(f -> lines(f) < 200)
+//                .filter(f -> lines(f) < 200)
                 .sorted()
 //                .filter(f -> f.getName().endsWith("_u.txt"))
-//                .filter(f -> f.getName().endsWith("_m.txt") || f.getName().endsWith("_f.txt") || f.getName().endsWith("_u.txt"))
+                .filter(f -> f.getName().endsWith("_m.txt") || f.getName().endsWith("_f.txt") || f.getName().endsWith("_u.txt"))
                 .collect(Collectors.toList());
 //
         String summary = files.stream()
@@ -38,7 +38,7 @@ public class FileFixer {
 //            String rootFilename = file.getName().substring(0, file.getName().length() - 6);
 //            String to = DIR + rootFilename + getSuffix(file) + ".txt";
 //            copyTo(file, to);
-//            file.delete();
+            file.delete();
         }
     }
 
