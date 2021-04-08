@@ -1,18 +1,14 @@
 package com.github.nealel.wordsmasher.generator;
 
-import com.github.nealel.wordsmasher.api.BatchRequestDto;
-import com.github.nealel.wordsmasher.model.WeightedCompositeMatrix;
+import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.generator.model.WeightedCompositeMatrix;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
-import static com.github.nealel.wordsmasher.model.TransitionCountMatrix.END_SYMBOL;
-import static com.github.nealel.wordsmasher.model.TransitionCountMatrix.START_SYMBOL;
-import static java.util.stream.Collectors.toList;
+import static com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix.END_SYMBOL;
+import static com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix.START_SYMBOL;
 
 @Slf4j
 public class WordGenerator {

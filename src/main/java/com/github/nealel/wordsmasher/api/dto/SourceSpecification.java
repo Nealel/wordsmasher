@@ -1,4 +1,4 @@
-package com.github.nealel.wordsmasher.api;
+package com.github.nealel.wordsmasher.api.dto;
 
 import lombok.Data;
 

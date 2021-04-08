@@ -1,5 +1,6 @@
-package com.github.nealel.wordsmasher.api;
+package com.github.nealel.wordsmasher.api.controllers;
 
+import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
 import com.github.nealel.wordsmasher.corpus.FileCorpusLoader;
 import com.github.nealel.wordsmasher.generator.BatchGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 @RestController

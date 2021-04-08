@@ -1,4 +1,4 @@
-package com.github.nealel.wordsmasher.model;
+package com.github.nealel.wordsmasher.generator.model;
 
 import java.util.HashMap;
 import java.util.Map;

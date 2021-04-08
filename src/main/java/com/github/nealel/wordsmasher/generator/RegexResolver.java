@@ -2,8 +2,8 @@ package com.github.nealel.wordsmasher.generator;
 
 import java.util.regex.Pattern;
 
-import static com.github.nealel.wordsmasher.model.TransitionCountMatrix.END_SYMBOL;
-import static com.github.nealel.wordsmasher.model.TransitionCountMatrix.START_SYMBOL;
+import static com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix.END_SYMBOL;
+import static com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix.START_SYMBOL;
 
 /**
  * A user-friendly regex that uses C for consonants, V for vowels, and X for either

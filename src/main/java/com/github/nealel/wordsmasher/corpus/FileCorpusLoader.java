@@ -11,17 +11,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.github.nealel.wordsmasher.corpus.FileLoader.loadCorpus;
+
 @Component
 @Slf4j
 public class FileCorpusLoader {
+    public static final int MIN_CORPUS_SIZE = 100;
     private final String fileroot;
-    private final ResourcePatternResolver resourceResolver;
     private final Map<String, Set<String>> corpus = new HashMap<>();
 
-    public FileCorpusLoader(@Value("${generator.corpus.fileroot:src/main/resources/data/btn_rich/}") String fileroot,
-                            ResourcePatternResolver resourceResolver) throws IOException {
+    public FileCorpusLoader(@Value("${generator.corpus.fileroot:src/main/resources/data/btn_rich/}") String fileroot)
+            throws IOException {
         this.fileroot = fileroot;
-        this.resourceResolver = resourceResolver;
         log.info("loading corpus");
         loadDirectory("");
         log.info("loaded corpus");
@@ -30,19 +31,26 @@ public class FileCorpusLoader {
     public Set<String> loadDirectory(String dir) throws IOException {
         File[] files = new File(fileroot + dir).listFiles();
         Set<String> namesForDir = new HashSet<>();
+
         for (File file : files) {
             if (file.isFile()) {
-                Set<String> names = loadCorpus(dir + "/" + file.getName(), 2);
-                if (names.size() > 100) {
-                    corpus.put(dir.replaceFirst("/", "").replaceAll("/", " > ") + " > " + file.getName().substring(0, file.getName().length() - 4), names);
-                    namesForDir.addAll(names);
+                Set<String> names = loadCorpus(fileroot + dir + "/" + file.getName());
+                if (names.size() > MIN_CORPUS_SIZE) {
+                    addFileToCorpus(dir, namesForDir, file, names);
                 }
             } else {
                 namesForDir.addAll(loadDirectory(dir + "/" + file.getName()));
             }
         }
+
         corpus.put(dirToPrettyName(dir), namesForDir);
         return namesForDir;
+    }
+
+    private void addFileToCorpus(String dir, Set<String> namesForDir, File file, Set<String> names) {
+        String fileName = file.getName().substring(0, file.getName().length() - 4);
+        corpus.put(dirToPrettyName(dir) + fileName, names);
+        namesForDir.addAll(names);
     }
 
     private String dirToPrettyName(String dir) {
@@ -57,30 +65,5 @@ public class FileCorpusLoader {
 
     public Set<String> getFile(String file) {
         return corpus.get(file);
-    }
-
-    public Set<String> loadCorpus(String fileName, int minSize) throws IOException {
-        File file = new File(fileroot + fileName);
-        Scanner scanner = new Scanner(file)
-                .useDelimiter("\\s+");
-
-        Set<String> words = new HashSet<>();
-        int unsuitableWords = 0;
-        while (scanner.hasNext()) {
-            String word = scanner.next();
-            if (isSuitable(minSize, word)) {
-                words.add(word.toLowerCase());
-            } else {
-                unsuitableWords++;
-            }
-        }
-
-        log.info("Loaded {} words from file {}. {} words were discarded as unsuitable",
-                fileName, words.size(), unsuitableWords);
-        return words;
-    }
-
-    private boolean isSuitable(int minSize, String word) {
-        return word.matches("[a-zA-Z]+") && word.length() >= minSize;
     }
 }

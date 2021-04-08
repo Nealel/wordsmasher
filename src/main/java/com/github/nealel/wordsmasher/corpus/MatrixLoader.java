@@ -1,8 +1,8 @@
 package com.github.nealel.wordsmasher.corpus;
 
-import com.github.nealel.wordsmasher.api.BatchRequestDto;
-import com.github.nealel.wordsmasher.api.SourceSpecification;
-import com.github.nealel.wordsmasher.model.TransitionCountMatrix;
+import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.SourceSpecification;
+import com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.extern.slf4j.Slf4j;

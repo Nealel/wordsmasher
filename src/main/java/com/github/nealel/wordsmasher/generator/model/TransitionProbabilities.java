@@ -1,7 +1,6 @@
-package com.github.nealel.wordsmasher.model;
+package com.github.nealel.wordsmasher.generator.model;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
