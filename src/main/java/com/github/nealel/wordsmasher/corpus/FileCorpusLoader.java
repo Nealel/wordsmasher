@@ -49,7 +49,7 @@ public class FileCorpusLoader {
 
     private void addFileToCorpus(String dir, Set<String> namesForDir, File file, Set<String> names) {
         String fileName = file.getName().substring(0, file.getName().length() - 4);
-        corpus.put(dirToPrettyName(dir) + fileName, names);
+        corpus.put(dirToPrettyName(dir) + " > " + fileName, names);
         namesForDir.addAll(names);
     }
 
