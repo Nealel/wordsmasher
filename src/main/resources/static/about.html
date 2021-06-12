@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Ultra Name Lab!</title>
+  <title>wordSMASHER!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,18 +15,22 @@
 
 <body>
   <div class="container">
-    <h5 style="line-height: 1.2">Ultra Name Lab!</h5>
-    <p>A highly customizable, open-source fantasy name generator. Ultra Name Lab lets you mix and match different data sets of names to generate something totally unique</p>
+    <h5 style="line-height: 1.2">wordSMASHER!</h5>
+    <p>A highly customizable, open-source fantasy name generator. WordSMASHER lets you mix and match different data sets
+      of names to generate something totally unique</p>
 
     <h5 style="line-height: 1.2">How does it work?</h5>
-    <p>Like pretty most fantasy name generator, names are generated using Markov models.
-      This means it takes a large data set of real names and builds a statistical model of the language (or at least, the letter sequences in a language).
-      It then uses that model to generate new names.
+    <p>Like a lot of fantasy name generator, names are generated using Markov models.
+      This means it takes a large data set of real names and builds a statistical model of the language (specifically,
+      the probability of the next letter, given the previous let of letter).
+      It then that model to generate new names.
     </p>
-
+p
     <h5 style="line-height: 1.2">Usage tips</h5>
-    <p>Adding an English data set at a low weight to exotic-sounding languages will produce names that sound a little more familiar</p>
+    <p>Adding a data set for your native language (e.g. English for English-speakers) at a low weight to exotic-sounding languages will produce names that sound a little more familiar</p>
     <p>Adding multiple similar data sets with a generic, well-rounded feel. e.g. French, Spanish and Italian will produce generic European names<p>
+    <p>Adding a 'generic' data set will include all the more specific sets that fall under it. e.g. European includes French, and French includes French (female)</p>
+    <p>To understand how to use 'patterns', see the <a href='/pattern-guide.html'>pattern guide</a><p>
     <p></p>
   </div>
 </body>
