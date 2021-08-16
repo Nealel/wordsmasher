@@ -13,7 +13,7 @@ public class FileLoader {
 
     public static final int MIN_SIZE = 2;
 
-    public static Set<String> loadCorpus(String fileName) throws IOException {
+    public static Set<String> loadNamesFromFile(String fileName) throws IOException {
         Scanner scanner = new Scanner(new File(fileName))
                                     .useDelimiter("\\s+");
 

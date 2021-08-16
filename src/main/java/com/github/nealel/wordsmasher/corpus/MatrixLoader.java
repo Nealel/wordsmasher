@@ -26,7 +26,7 @@ public class MatrixLoader {
             .build();
 
     @Autowired
-    private FileCorpusLoader fileCorpusLoader;
+    private Corpuses corpuses;
 
     public Map<TransitionCountMatrix, Double> getWeightedCounts(BatchRequestDto request) throws ExecutionException {
         Map<TransitionCountMatrix, Double> countMatrices = new HashMap<>();
@@ -39,7 +39,7 @@ public class MatrixLoader {
     }
 
     private TransitionCountMatrix loadMatrix(BatchRequestDto request, SourceSpecification source) {
-        Set<String> words = fileCorpusLoader.getFile(source.getFilename())
+        Set<String> words = corpuses.getContentsForCorpus(source.getFilename())
                 .stream()
                 .filter(w -> w.length() >= request.getChunkSize())
                 .collect(Collectors.toSet());

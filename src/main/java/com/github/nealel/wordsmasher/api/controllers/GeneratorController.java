@@ -1,7 +1,7 @@
 package com.github.nealel.wordsmasher.api.controllers;
 
 import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
-import com.github.nealel.wordsmasher.corpus.FileCorpusLoader;
+import com.github.nealel.wordsmasher.corpus.Corpuses;
 import com.github.nealel.wordsmasher.generator.BatchGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +19,21 @@ public class GeneratorController {
     @Autowired
     private BatchGenerator generator;
     @Autowired
-    private FileCorpusLoader fileCorpusLoader;
+    private Corpuses corpuses;
 
+    /**
+     * Generates and returns a list of names, according to the request's parameters
+     */
     @PostMapping("/names")
     public List<String> getNames(@RequestBody BatchRequestDto request) throws ExecutionException {
         return generator.generateBatch(request);
     }
 
+    /**
+     * Lists the names of all available data source corpuses
+     */
     @GetMapping("/corpuses")
     public List<String> getCorpuses() throws IOException {
-        return fileCorpusLoader.getAvailableFiles();
+        return corpuses.getAvailableCorpuses();
     }
 }

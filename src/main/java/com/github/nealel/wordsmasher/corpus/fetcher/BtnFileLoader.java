@@ -1,6 +1,6 @@
 package com.github.nealel.wordsmasher.corpus.fetcher;
 
-import com.github.nealel.wordsmasher.corpus.FileCorpusLoader;
+import com.github.nealel.wordsmasher.corpus.Corpuses;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 
@@ -17,7 +17,7 @@ public class BtnFileLoader {
      * loads a list of names from a file, filtering out invalid names and names that are out of the desired range
      */
     public static List<String> loadRaw(String fromRange, String toRange) {
-        Scanner scanner = new Scanner(FileCorpusLoader.class.getResourceAsStream(RAW_NAMES), StandardCharsets.UTF_8)
+        Scanner scanner = new Scanner(Corpuses.class.getResourceAsStream(RAW_NAMES), StandardCharsets.UTF_8)
                 .useDelimiter("\\n");
 
         List<String> names = new ArrayList<>();

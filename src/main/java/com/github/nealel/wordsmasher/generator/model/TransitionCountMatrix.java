@@ -8,6 +8,9 @@ import static java.util.stream.Collectors.toMap;
 
 /**
  * Builds a Matrix count of word transitions from a set of input words
+ *
+ * In plain language, for each chunk (aka sequence of N character sequence) that appeared in the original data,
+ * what characters followed it, and how many times did it follow?
  */
 public class TransitionCountMatrix {
     public static final String START_SYMBOL = "^";
