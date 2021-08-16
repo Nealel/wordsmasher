@@ -2,12 +2,10 @@ package com.github.nealel.wordsmasher.corpus;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,7 +18,7 @@ public class FileCorpusLoader {
     private final String fileroot;
     private final Map<String, Set<String>> corpus = new HashMap<>();
 
-    public FileCorpusLoader(@Value("${generator.corpus.fileroot:src/main/resources/data/btn_rich/}") String fileroot)
+    public FileCorpusLoader(@Value("${generator.corpus.fileroot:src/main/resources/data/current_corpus/}") String fileroot)
             throws IOException {
         this.fileroot = fileroot;
         log.info("loading corpus");
