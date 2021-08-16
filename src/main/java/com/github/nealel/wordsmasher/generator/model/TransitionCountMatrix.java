@@ -1,6 +1,8 @@
 package com.github.nealel.wordsmasher.generator.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toMap;
 

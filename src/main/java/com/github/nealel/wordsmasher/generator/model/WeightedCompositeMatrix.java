@@ -1,9 +1,12 @@
 package com.github.nealel.wordsmasher.generator.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 public class WeightedCompositeMatrix {
 

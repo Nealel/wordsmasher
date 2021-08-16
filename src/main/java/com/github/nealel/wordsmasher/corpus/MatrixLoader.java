@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -39,7 +38,7 @@ public class MatrixLoader {
         return countMatrices;
     }
 
-    private TransitionCountMatrix loadMatrix(BatchRequestDto request, SourceSpecification source) throws IOException {
+    private TransitionCountMatrix loadMatrix(BatchRequestDto request, SourceSpecification source) {
         Set<String> words = fileCorpusLoader.getFile(source.getFilename())
                 .stream()
                 .filter(w -> w.length() >= request.getChunkSize())
