@@ -6,53 +6,64 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.github.nealel.wordsmasher.corpus.FileLoader.loadCorpus;
+
 @Component
 @Slf4j
 public class FileCorpusLoader {
+    public static final int MIN_CORPUS_SIZE = 100;
     private final String fileroot;
-    private final ResourcePatternResolver resourceResolver;
+    private final Map<String, Set<String>> corpus = new HashMap<>();
 
-    public FileCorpusLoader(@Value("${generator.corpus.fileroot:/data/btn_rich/}") String fileroot,
-                            ResourcePatternResolver resourceResolver) {
+    public FileCorpusLoader(@Value("${generator.corpus.fileroot:src/main/resources/data/btn_rich/}") String fileroot)
+            throws IOException {
         this.fileroot = fileroot;
-        this.resourceResolver = resourceResolver;
+        log.info("loading corpus");
+        loadDirectory("");
+        log.info("loaded corpus");
     }
 
-    public List<String> getAvailableFiles() throws IOException {
-        return Arrays.stream(resourceResolver.getResources("classpath:" + fileroot + "*.txt"))
-                .map(Resource::getFilename)
-                .map(s -> s.substring(0, s.length() - 4))
+    public Set<String> loadDirectory(String dir) throws IOException {
+        File[] files = new File(fileroot + dir).listFiles();
+        Set<String> namesForDir = new HashSet<>();
+
+        for (File file : files) {
+            if (file.isFile()) {
+                Set<String> names = loadCorpus(fileroot + dir + "/" + file.getName());
+                if (names.size() > MIN_CORPUS_SIZE) {
+                    addFileToCorpus(dir, namesForDir, file, names);
+                }
+            } else {
+                namesForDir.addAll(loadDirectory(dir + "/" + file.getName()));
+            }
+        }
+
+        corpus.put(dirToPrettyName(dir), namesForDir);
+        return namesForDir;
+    }
+
+    private void addFileToCorpus(String dir, Set<String> namesForDir, File file, Set<String> names) {
+        String fileName = file.getName().substring(0, file.getName().length() - 4);
+        corpus.put(dirToPrettyName(dir) + " > " + fileName, names);
+        namesForDir.addAll(names);
+    }
+
+    private String dirToPrettyName(String dir) {
+        return dir.replaceFirst("/", "").replace("/", " > ");
+    }
+
+    public List<String> getAvailableFiles() {
+        return corpus.keySet().stream()
                 .sorted()
                 .collect(Collectors.toList());
     }
 
-    public Set<String> loadCorpus(String fileName, int minSize) throws IOException {
-        Resource resource = resourceResolver.getResources("classpath:" + fileroot + fileName + ".txt")[0];
-        Scanner scanner = new Scanner(resource.getInputStream(), StandardCharsets.UTF_8)
-                .useDelimiter("\\s+");
-
-        Set<String> words = new HashSet<>();
-        int unsuitableWords = 0;
-        while (scanner.hasNext()) {
-            String word = scanner.next();
-            if (isSuitable(minSize, word)) {
-                words.add(word.toLowerCase());
-            } else {
-                unsuitableWords++;
-            }
-        }
-
-        log.info("Loaded {} words from file {}. {} words were discarded as unsuitable",
-                fileName, words.size(), unsuitableWords);
-        return words;
-    }
-
-    private boolean isSuitable(int minSize, String word) {
-        return word.matches("[a-zA-Z]+") && word.length() >= minSize;
+    public Set<String> getFile(String file) {
+        return corpus.get(file);
     }
 }

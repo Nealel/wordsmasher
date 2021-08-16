@@ -1,4 +1,7 @@
-* add a 'randomize' option that picks 3 random languages
 * let users create custom corpuses
-* learn react
-* learn sass
+* let users export and input settings
+* improve corpuses
+* save pre-computed matrices to improve performance
+* add integration tests
+* upgrade to junit 5
+* upgrade to java 16

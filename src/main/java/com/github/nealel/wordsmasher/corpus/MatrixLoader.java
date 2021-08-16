@@ -1,8 +1,8 @@
 package com.github.nealel.wordsmasher.corpus;
 
-import com.github.nealel.wordsmasher.api.BatchRequestDto;
-import com.github.nealel.wordsmasher.api.SourceSpecification;
-import com.github.nealel.wordsmasher.model.TransitionCountMatrix;
+import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.SourceSpecification;
+import com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -39,7 +40,10 @@ public class MatrixLoader {
     }
 
     private TransitionCountMatrix loadMatrix(BatchRequestDto request, SourceSpecification source) throws IOException {
-        Set<String> words = fileCorpusLoader.loadCorpus(source.getFilename(), request.getChunkSize());
+        Set<String> words = fileCorpusLoader.getFile(source.getFilename())
+                .stream()
+                .filter(w -> w.length() >= request.getChunkSize())
+                .collect(Collectors.toSet());
         return new TransitionCountMatrix(words, request.getChunkSize());
     }
 

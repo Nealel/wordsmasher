@@ -1,9 +1,9 @@
 package com.github.nealel.wordsmasher.generator;
 
-import com.github.nealel.wordsmasher.api.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
 import com.github.nealel.wordsmasher.corpus.MatrixLoader;
-import com.github.nealel.wordsmasher.model.TransitionCountMatrix;
-import com.github.nealel.wordsmasher.model.WeightedCompositeMatrix;
+import com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix;
+import com.github.nealel.wordsmasher.generator.model.WeightedCompositeMatrix;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class BatchGenerator {
                 .filter(Optional::isPresent)
                 .distinct()
                 .map(Optional::get)
-                .filter(word -> !inputData.contains(word))
+//                .filter(word -> !inputData.contains(word))
                 .limit(request.getBatchSize())
                 .collect(toList());
     }

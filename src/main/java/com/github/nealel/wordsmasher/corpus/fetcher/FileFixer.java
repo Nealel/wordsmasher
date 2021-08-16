@@ -6,23 +6,26 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
 import static java.util.stream.Collectors.joining;
 
 public class FileFixer {
 
-    public static final String DIR = "src/main/resources/data/btn_rich/small/";
+    public static final String DIR = "src/main/resources/data/btn_rich/";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         File dir = new File(DIR);
         List<File> files = Arrays.stream(dir.listFiles())
                 .filter(File::isFile)
-//                .filter(f -> lines(f) < 200)
-                .sorted()
+                .filter(f -> lines(f) < 50)
+//                .sorted()
 //                .filter(f -> f.getName().endsWith("_u.txt"))
-                .filter(f -> f.getName().endsWith("_m.txt") || f.getName().endsWith("_f.txt") || f.getName().endsWith("_u.txt"))
+//                .filter(f -> f.getName().endsWith("_m.txt") || f.getName().endsWith("_f.txt") || f.getName().endsWith("_u.txt"))
                 .collect(Collectors.toList());
 //
         String summary = files.stream()
@@ -33,12 +36,18 @@ public class FileFixer {
 
         System.out.println(summary);
         System.out.println(files.size());
+        sleep(5000);
         for (File file : files) {
 //            System.out.println(file.getName());
-//            String rootFilename = file.getName().substring(0, file.getName().length() - 6);
-//            String to = DIR + rootFilename + getSuffix(file) + ".txt";
-//            copyTo(file, to);
-            file.delete();
+////            String rootFilename = file.getName().substring(0, file.getName().length() - 6);
+////            String to = DIR + rootFilename + getSuffix(file) + ".txt";
+////            copyTo(file, to);
+//            file.delete();
+            try {
+                Files.move(Path.of(file.getPath()), Path.of(DIR + "/tiny/" + file.getName()));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
