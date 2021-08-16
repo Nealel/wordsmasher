@@ -1,14 +1,15 @@
 # WORDSMASHER
 
+See it in action: https://ultimate-name-lab.herokuapp.com/
+
 ## what is this?
-It's a highly customizable, open-source fantasy name generator. It's a tool for writers, dungeon-masters, world-builders 
-and anyone wants to a lot of made-up names with a consistent, distinctive feel to them.
+It's a highly customizable, open-source fantasy name generator. It's a tool for writers, dungeon-masters, world-builders,
+conlangers, or anyone wants to a lot of made-up names with a consistent, distinctive feel to them.
 
-Wordsmasher works similarly to most other fantasy name generators (building a statistical model from a real language, 
-and generating new words based on that model), but whereas other generators box you in to their pre-existing categories,
-wordsmasher lets you blend different languages together to create something that's distinctive, consistent, and uniquely
-yours. You want something that's 60% Celtic, 30% Germanic and 10% Bengali? No problem.
-
+Wordsmasher lets you customize the names that are generated in a number of ways to create something that's uniquely yours:
+* you can combine and weight different languages. You want something that's 60% German, 30% English and 10% Bengali? No problem.
+* you can define regex-like patterns to generate names that match a specific criteria. e.g. you want names that start with 'El' and end in a vowel? Easy, use the pattern `elXV` 
+* you can tweak the parameters of the generator, like the name length and how closely it matches the input data set
 
 ## How is it built?
 Java 11 | Spring Boot | Javascript | JQuery | CSS | HTML | Bootstrap
