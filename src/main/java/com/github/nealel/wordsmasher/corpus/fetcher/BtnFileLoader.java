@@ -13,14 +13,17 @@ import java.util.Scanner;
 public class BtnFileLoader {
     private static final String RAW_NAMES = "/data/btn_raw/btn_givennames.txt";
 
-    public static List<String> loadRaw(String from, String to) {
+    /**
+     * loads a list of names from a file, filtering out invalid names and names that are out of the desired range
+     */
+    public static List<String> loadRaw(String fromRange, String toRange) {
         Scanner scanner = new Scanner(FileCorpusLoader.class.getResourceAsStream(RAW_NAMES), StandardCharsets.UTF_8)
                 .useDelimiter("\\n");
 
         List<String> names = new ArrayList<>();
         while (scanner.hasNext()) {
             String name = scanner.next();
-            if (isValid(from, to, name)) {
+            if (isValid(fromRange, toRange, name)) {
                 names.add(name.split("\\s+")[0]);
             }
         }
@@ -29,10 +32,10 @@ public class BtnFileLoader {
         return names;
     }
 
-    private static boolean isValid(String from, String to, String name) {
+    private static boolean isValid(String fromRange, String toRange, String name) {
         return !name.startsWith("#")
                 && !Strings.isEmpty(name)
-                && name.toLowerCase().compareTo(from) >= 0
-                && name.toLowerCase().compareTo(to) < 0;
+                && name.toLowerCase().compareTo(fromRange) >= 0
+                && name.toLowerCase().compareTo(toRange) < 0;
     }
 }

@@ -1,10 +1,8 @@
 package com.github.nealel.wordsmasher.corpus.fetcher;
 
-import com.github.nealel.wordsmasher.corpus.FileCorpusLoader;
-import org.apache.logging.log4j.util.Strings;
-import org.json.JSONObject;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +16,9 @@ public class FileFixer {
 
     public static final String DIR = "src/main/resources/data/btn_rich/";
 
+    /**
+     * throw-away script that was used as a script to rename files and clean up corpus files
+     */
     public static void main(String[] args) throws IOException, InterruptedException {
         File dir = new File(DIR);
         List<File> files = Arrays.stream(dir.listFiles())

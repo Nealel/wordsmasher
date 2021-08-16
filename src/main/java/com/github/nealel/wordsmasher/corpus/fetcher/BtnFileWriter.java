@@ -1,8 +1,6 @@
 package com.github.nealel.wordsmasher.corpus.fetcher;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,8 +10,13 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class BtnFileWriter {
 
-    public static void responseToFile(String name, JSONObject jsonObject) throws IOException {
-        JSONArray usages = jsonObject.getJSONArray("usages");
+    public static final String OUTPUT_PATH = "src/main/resources/data/btn_rich/";
+
+    /**
+     * Writes the name to a file, organized by culture and gender
+     */
+    public static void responseToFile(String name, JSONObject nameMetadata) {
+        JSONArray usages = nameMetadata.getJSONArray("usages");
         for (Object usage : usages) {
             try {
                 String filePath = getFilePath((JSONObject) usage);
@@ -35,8 +38,8 @@ public class BtnFileWriter {
     }
 
     private static String getFilePath(JSONObject usage) {
-        String language = usage.getString("usage_full");
+        String culture = usage.getString("usage_full");
         String gender = usage.getString("usage_gender");
-        return "src/main/resources/data/btn_rich/" + language + "_" + gender + ".txt";
+        return OUTPUT_PATH + culture + "_" + gender + ".txt";
     }
 }
