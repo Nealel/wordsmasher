@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.matchesPattern;
 
 
 public class RegexResolverTest {
