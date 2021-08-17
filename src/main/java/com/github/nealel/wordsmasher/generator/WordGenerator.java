@@ -1,6 +1,6 @@
 package com.github.nealel.wordsmasher.generator;
 
-import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.BatchRequest;
 import com.github.nealel.wordsmasher.generator.model.WeightedCompositeMatrix;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,10 +16,10 @@ import static com.github.nealel.wordsmasher.generator.model.TransitionCountMatri
 public class WordGenerator {
     private static final Random RANDOM = new Random();
     private final Pattern pattern;
-    private final BatchRequestDto request;
+    private final BatchRequest request;
     private final WeightedCompositeMatrix matrix;
 
-    public WordGenerator(BatchRequestDto request, WeightedCompositeMatrix matrix) {
+    public WordGenerator(BatchRequest request, WeightedCompositeMatrix matrix) {
         this.request = request;
         this.matrix = matrix;
         this.pattern = RegexResolver.toRegex(request.getPattern());

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class BatchRequestDto {
+public class BatchRequest {
     private final int chunkSize; // AKA creativity/realism
     private final int minWordLength;
     private final int maxWordLength;

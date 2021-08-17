@@ -1,6 +1,6 @@
 package com.github.nealel.wordsmasher.corpus;
 
-import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.BatchRequest;
 import com.github.nealel.wordsmasher.api.dto.SourceSpecification;
 import com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix;
 import com.google.common.cache.Cache;
@@ -28,7 +28,7 @@ public class MatrixLoader {
     @Autowired
     private Corpuses corpuses;
 
-    public Map<TransitionCountMatrix, Double> getWeightedCounts(BatchRequestDto request) throws ExecutionException {
+    public Map<TransitionCountMatrix, Double> getWeightedCounts(BatchRequest request) throws ExecutionException {
         Map<TransitionCountMatrix, Double> countMatrices = new HashMap<>();
         for (SourceSpecification source : request.getSourceSpecifications()) {
             TransitionCountMatrix matrix = cacheCountsMatrix.get(source.getFilename() + ":" + request.getChunkSize(), () -> loadMatrix(request, source));
@@ -38,7 +38,7 @@ public class MatrixLoader {
         return countMatrices;
     }
 
-    private TransitionCountMatrix loadMatrix(BatchRequestDto request, SourceSpecification source) {
+    private TransitionCountMatrix loadMatrix(BatchRequest request, SourceSpecification source) {
         Set<String> words = corpuses.getContentsForCorpus(source.getFilename())
                 .stream()
                 .filter(w -> w.length() >= request.getChunkSize())

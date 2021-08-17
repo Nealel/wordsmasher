@@ -1,6 +1,6 @@
 package com.github.nealel.wordsmasher.api.controllers;
 
-import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.BatchRequest;
 import com.github.nealel.wordsmasher.corpus.Corpuses;
 import com.github.nealel.wordsmasher.generator.BatchGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class GeneratorController {
      * Generates and returns a list of names, according to the request's parameters
      */
     @PostMapping("/names")
-    public List<String> getNames(@RequestBody BatchRequestDto request) throws ExecutionException {
+    public List<String> getNames(@RequestBody BatchRequest request) throws ExecutionException {
         return generator.generateBatch(request);
     }
 

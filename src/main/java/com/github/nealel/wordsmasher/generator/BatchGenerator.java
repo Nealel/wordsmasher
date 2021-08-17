@@ -1,6 +1,6 @@
 package com.github.nealel.wordsmasher.generator;
 
-import com.github.nealel.wordsmasher.api.dto.BatchRequestDto;
+import com.github.nealel.wordsmasher.api.dto.BatchRequest;
 import com.github.nealel.wordsmasher.corpus.MatrixLoader;
 import com.github.nealel.wordsmasher.generator.model.TransitionCountMatrix;
 import com.github.nealel.wordsmasher.generator.model.WeightedCompositeMatrix;
@@ -31,7 +31,7 @@ public class BatchGenerator {
         this.matrixLoader = matrixLoader;
     }
 
-    public List<String> generateBatch(BatchRequestDto request) throws ExecutionException {
+    public List<String> generateBatch(BatchRequest request) throws ExecutionException {
         Map<TransitionCountMatrix, Double> countMatrices = matrixLoader.getWeightedCounts(request);
         Set<String> inputWords = getAllInputWords(countMatrices);
         WeightedCompositeMatrix matrix = new WeightedCompositeMatrix(countMatrices);
@@ -40,7 +40,7 @@ public class BatchGenerator {
         return names;
     }
 
-    private List<String> generateNames(BatchRequestDto request, Set<String> inputData, WeightedCompositeMatrix matrix) {
+    private List<String> generateNames(BatchRequest request, Set<String> inputData, WeightedCompositeMatrix matrix) {
         WordGenerator generator = new WordGenerator(request, matrix);
         return Stream.generate(generator::nextWord)
                 .limit(request.getBatchSize() * maxAttemptsPerWord)
