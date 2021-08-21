@@ -17,12 +17,14 @@ import static com.github.nealel.wordsmasher.corpus.FileLoader.loadNamesFromFile;
 @Component
 @Slf4j
 public class Corpuses {
-    public static final int MIN_CORPUS_SIZE = 100;
+    public final int minCorpusSize;
     private final String fileroot;
     private final Map<String, Set<String>> corpuses = new HashMap<>(); // key is corpus's name, value is corpus contents
 
-    public Corpuses(@Value("${generator.corpus.fileroot:src/main/resources/data/current_corpus/}") String fileroot)
+    public Corpuses(@Value("${generator.corpus.minsize:100}") int minCorpusSize,
+                    @Value("${generator.corpus.fileroot:src/main/resources/data/current_corpus/}") String fileroot)
             throws IOException {
+        this.minCorpusSize = minCorpusSize;
         this.fileroot = fileroot;
         log.info("loading corpus");
         loadAllCorpuses();
@@ -43,15 +45,18 @@ public class Corpuses {
         for (File file : files) {
             if (file.isFile()) {
                 Set<String> names = loadNamesFromFile(fileroot + dir + "/" + file.getName());
-                if (names.size() > MIN_CORPUS_SIZE) {
+                if (names.size() >= minCorpusSize) {
                     addFileToCorpus(dir, namesForDir, file, names);
                 }
+                namesForDir.addAll(names);
             } else {
                 namesForDir.addAll(loadNamesFromDirectory(dir + "/" + file.getName()));
             }
         }
 
-        corpuses.put(dirToPrettyName(dir), namesForDir);
+        if (namesForDir.size() >= minCorpusSize) {
+            corpuses.put(dirToPrettyName(dir), namesForDir);
+        }
         return namesForDir;
     }
 
