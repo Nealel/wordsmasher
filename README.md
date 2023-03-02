@@ -1,9 +1,5 @@
 # WORDSMASHER
 
-See it in action: https://ultimate-name-lab.herokuapp.com/
-
-It's heroku (free tier), so it might need ~30 seconds to load initially.
-
 ## what is this?
 It's a highly customizable, open-source fantasy name generator. It's a tool for writers, dungeon-masters, world-builders,
 conlangers, or anyone wants to a lot of made-up names with a consistent, distinctive feel to them.
